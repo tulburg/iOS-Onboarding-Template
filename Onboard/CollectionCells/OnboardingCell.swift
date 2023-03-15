@@ -20,6 +20,7 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
     var verificationCode: VerificationCode!
     var dateContainer: UIView!
     var dateLabel: UILabel!
+    var selectedDate: Date?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -66,15 +67,10 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
         }
         
         if (config.type == .Date) {
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "DD-MM-YYYY"
-//            datePicker.date = Date(timeIntervalSinceNow: -(22 * 365 * 86400))
-//            datePicker.minimumDate = formatter.date(from: "01-01-1920")
-//            datePicker.maximumDate = Date(timeIntervalSinceNow: -(18 * 365 * 86400))
             dateContainer.isHidden = false
             questionLabel.isHidden = false
             if config.datePickerConfig != nil {
-                datePicker.date = config.datePickerConfig!.date
+                datePicker.date = selectedDate ?? config.datePickerConfig!.date
                 datePicker.minimumDate = config.datePickerConfig?.minDate
                 datePicker.maximumDate = config.datePickerConfig?.maxDate
             }
@@ -227,6 +223,7 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
     
     @objc func datePickerChanged(_ sender: UIDatePicker, value: Any) {
         dateLabel.text = sender.date.string(with: "d MMMM YYYY")
+        selectedDate = sender.date
     }
     
 }
