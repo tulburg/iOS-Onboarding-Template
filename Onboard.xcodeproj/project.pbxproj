@@ -25,7 +25,8 @@
 		DF447E4429C0AA6400DBABF5 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF447E3829C0AA6300DBABF5 /* LoginController.swift */; };
 		DF447E4629C0AA6400DBABF5 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF447E3A29C0AA6300DBABF5 /* NavigationController.swift */; };
 		DF447E4829C0AB6500DBABF5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF447E4729C0AB6500DBABF5 /* Extensions.swift */; };
-		DF8E39BB29C11D9A00863714 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E39BA29C11D9900863714 /* WelcomeViewController.swift */; };
+		DF8E39BB29C11D9A00863714 /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E39BA29C11D9900863714 /* OnboardingController.swift */; };
+		DF8E39BE29C12A0B00863714 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E39BD29C12A0B00863714 /* OnboardingCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +69,8 @@
 		DF447E3829C0AA6300DBABF5 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		DF447E3A29C0AA6300DBABF5 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		DF447E4729C0AB6500DBABF5 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		DF8E39BA29C11D9900863714 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		DF8E39BA29C11D9900863714 /* OnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
+		DF8E39BD29C12A0B00863714 /* OnboardingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 		DF447DF929C0A9AA00DBABF5 /* Onboard */ = {
 			isa = PBXGroup;
 			children = (
+				DF8E39BC29C129F600863714 /* CollectionCells */,
 				DF447E4729C0AB6500DBABF5 /* Extensions.swift */,
 				DF447E2D29C0AA6300DBABF5 /* Utilities */,
 				DF447E3629C0AA6300DBABF5 /* ViewControllers */,
@@ -167,7 +170,7 @@
 				DF447E3729C0AA6300DBABF5 /* ViewController.swift */,
 				DF447E3829C0AA6300DBABF5 /* LoginController.swift */,
 				DF447E3A29C0AA6300DBABF5 /* NavigationController.swift */,
-				DF8E39BA29C11D9900863714 /* WelcomeViewController.swift */,
+				DF8E39BA29C11D9900863714 /* OnboardingController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -179,6 +182,14 @@
 				DF447DFC29C0A9AA00DBABF5 /* SceneDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		DF8E39BC29C129F600863714 /* CollectionCells */ = {
+			isa = PBXGroup;
+			children = (
+				DF8E39BD29C12A0B00863714 /* OnboardingCell.swift */,
+			);
+			path = CollectionCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,11 +329,12 @@
 				DF447E4129C0AA6400DBABF5 /* Api.swift in Sources */,
 				DF447E3D29C0AA6400DBABF5 /* Linker.swift in Sources */,
 				DF447E4329C0AA6400DBABF5 /* ViewController.swift in Sources */,
-				DF8E39BB29C11D9A00863714 /* WelcomeViewController.swift in Sources */,
+				DF8E39BB29C11D9A00863714 /* OnboardingController.swift in Sources */,
 				DF447E4629C0AA6400DBABF5 /* NavigationController.swift in Sources */,
 				DF447E4829C0AB6500DBABF5 /* Extensions.swift in Sources */,
 				DF447E0529C0A9AA00DBABF5 /* Onboard.xcdatamodeld in Sources */,
 				DF447DFB29C0A9AA00DBABF5 /* AppDelegate.swift in Sources */,
+				DF8E39BE29C12A0B00863714 /* OnboardingCell.swift in Sources */,
 				DF447DFD29C0A9AA00DBABF5 /* SceneDelegate.swift in Sources */,
 				DF447E4429C0AA6400DBABF5 /* LoginController.swift in Sources */,
 			);
