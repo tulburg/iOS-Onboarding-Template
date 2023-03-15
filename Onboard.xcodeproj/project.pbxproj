@@ -27,6 +27,9 @@
 		DF447E4829C0AB6500DBABF5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF447E4729C0AB6500DBABF5 /* Extensions.swift */; };
 		DF8E39BB29C11D9A00863714 /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E39BA29C11D9900863714 /* OnboardingController.swift */; };
 		DF8E39BE29C12A0B00863714 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E39BD29C12A0B00863714 /* OnboardingCell.swift */; };
+		DFF6725C29C1FAD700B9D8D9 /* VerificationCodeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6725929C1FAD700B9D8D9 /* VerificationCodeItem.swift */; };
+		DFF6725D29C1FAD700B9D8D9 /* VerificationCodeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6725A29C1FAD700B9D8D9 /* VerificationCodeProtocol.swift */; };
+		DFF6725E29C1FAD700B9D8D9 /* VerificationCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6725B29C1FAD700B9D8D9 /* VerificationCode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,9 @@
 		DF447E4729C0AB6500DBABF5 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DF8E39BA29C11D9900863714 /* OnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
 		DF8E39BD29C12A0B00863714 /* OnboardingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
+		DFF6725929C1FAD700B9D8D9 /* VerificationCodeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeItem.swift; sourceTree = "<group>"; };
+		DFF6725A29C1FAD700B9D8D9 /* VerificationCodeProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeProtocol.swift; sourceTree = "<group>"; };
+		DFF6725B29C1FAD700B9D8D9 /* VerificationCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +127,7 @@
 		DF447DF929C0A9AA00DBABF5 /* Onboard */ = {
 			isa = PBXGroup;
 			children = (
+				DFF6725829C1FAD700B9D8D9 /* VerificationCode */,
 				DF8E39BC29C129F600863714 /* CollectionCells */,
 				DF447E4729C0AB6500DBABF5 /* Extensions.swift */,
 				DF447E2D29C0AA6300DBABF5 /* Utilities */,
@@ -190,6 +197,16 @@
 				DF8E39BD29C12A0B00863714 /* OnboardingCell.swift */,
 			);
 			path = CollectionCells;
+			sourceTree = "<group>";
+		};
+		DFF6725829C1FAD700B9D8D9 /* VerificationCode */ = {
+			isa = PBXGroup;
+			children = (
+				DFF6725929C1FAD700B9D8D9 /* VerificationCodeItem.swift */,
+				DFF6725A29C1FAD700B9D8D9 /* VerificationCodeProtocol.swift */,
+				DFF6725B29C1FAD700B9D8D9 /* VerificationCode.swift */,
+			);
+			path = VerificationCode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,6 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF447E3E29C0AA6400DBABF5 /* Response.swift in Sources */,
+				DFF6725C29C1FAD700B9D8D9 /* VerificationCodeItem.swift in Sources */,
 				DF447E3B29C0AA6400DBABF5 /* Constants.swift in Sources */,
 				DF447E4029C0AA6400DBABF5 /* DB.swift in Sources */,
 				DF447E4129C0AA6400DBABF5 /* Api.swift in Sources */,
@@ -331,11 +349,13 @@
 				DF447E4329C0AA6400DBABF5 /* ViewController.swift in Sources */,
 				DF8E39BB29C11D9A00863714 /* OnboardingController.swift in Sources */,
 				DF447E4629C0AA6400DBABF5 /* NavigationController.swift in Sources */,
+				DFF6725D29C1FAD700B9D8D9 /* VerificationCodeProtocol.swift in Sources */,
 				DF447E4829C0AB6500DBABF5 /* Extensions.swift in Sources */,
 				DF447E0529C0A9AA00DBABF5 /* Onboard.xcdatamodeld in Sources */,
 				DF447DFB29C0A9AA00DBABF5 /* AppDelegate.swift in Sources */,
 				DF8E39BE29C12A0B00863714 /* OnboardingCell.swift in Sources */,
 				DF447DFD29C0A9AA00DBABF5 /* SceneDelegate.swift in Sources */,
+				DFF6725E29C1FAD700B9D8D9 /* VerificationCode.swift in Sources */,
 				DF447E4429C0AA6400DBABF5 /* LoginController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,14 +7,16 @@
 
 import UIKit
 
-class OnboardingController: ViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class OnboardingController: ViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, OBDelegate {
     
     var collectionView: UICollectionView!
     var indicator: UIView!
     var indicatorLastPosition: Int?
-    let items: [[String: String]] = [
-        FormType.SimpleText.Config("What's your full name?", "Fullname", submitType: .nestable),
-        FormType.SimpleText.Config("Choose your username", "Username", submitType: .nestable)
+    let items: [OBFormConfig] = [
+        OBFormType.VerificationCode.Config("Enter the verification code", "Code", submitType: .nestable),
+        OBFormType.Name.Config("What's your full name?", "Fullname", submitType: .nestable),
+        OBFormType.Username.Config("Choose your username", "Username", submitType: .nestable),
+        OBFormType.Email.Config("What is your email address?", "Email address", submitType: .nestable)
     ]
     var cell: OnboardingCell!
     var navPanel: UIView!
@@ -26,7 +28,7 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
         view.backgroundColor = .background
         
         buildCollectionView()
-        indicator = buildIndicator(8)
+        indicator = buildIndicator(items.count)
         navPanel = buildNavPanel()
         
         view.add().vertical(safeAreaInset!.top + 24).view(indicator, 24).view(collectionView, view.frame.height - safeAreaInset!.top - 56).end(">=0")
@@ -55,11 +57,12 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
     
     func buildIndicator(_ items: Int) -> UIView {
         let container = UIView()
+        container.clipsToBounds = true
         var constraint = container.add().horizontal(0)
-        for i in 0...items {
+        for i in 0...(items - 1) {
             let counter = UIView()
             counter.backgroundColor = .darkBackground
-            if i == items {
+            if i == (items - 1) {
                 constraint = constraint.view(counter, 10)
             }else {
                 constraint = constraint.view(counter, 10).gap(14)
@@ -75,6 +78,9 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
     func indicate(_ position: Int) {
         guard position > -1 else { return }
         guard position < items.count else { return }
+        for c in indicator.constraints where c.firstAttribute == .leading && (c.firstItem as? UIView) == indicator.subviews[0] {
+            c.constant = -CGFloat((position * 24))
+        }
         func resize(_ child: UIView, _ size: CGFloat) {
             for c in indicator.constraints where c.firstAttribute == .height && (c.firstItem as? UIView) == child {
                 c.constant = size
@@ -82,12 +88,11 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
             for c in indicator.constraints where c.firstAttribute == .width && (c.firstItem as? UIView) == child {
                 c.constant = size
             }
-            UIView.animate(withDuration: 0.5, animations: {
-                child.layer.cornerRadius = size / 2
-                child.backgroundColor = size == 10 ? .lightGray : .accent
-                self.indicator.layoutIfNeeded()
-            })
+            child.layer.cornerRadius = size / 2
+            child.backgroundColor = size == 10 ? .lightGray : .accent
+            self.indicator.layoutIfNeeded()
         }
+        
         if indicatorLastPosition != nil {
             resize(indicator.subviews[indicatorLastPosition!], 10)
         }
@@ -99,19 +104,26 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
         let container = UIView()
         
         nextButton = UIButton(configuration: .filled())
-        nextButton.configuration?.image = UIImage(systemName: "control")
-        nextButton.transform = CGAffineTransform(rotationAngle: 1.57)
+        nextButton.configuration?.image = UIImage(named: "arrow")
         nextButton.configuration?.cornerStyle = .capsule
-        nextButton.configuration?.baseBackgroundColor = .accent
-        nextButton.configuration?.baseForegroundColor = .white
+        nextButton.configuration?.baseBackgroundColor = .gray
+        nextButton.configurationUpdateHandler = { button in
+            var config = button.configuration
+            config?.baseBackgroundColor = button.isEnabled ? .accent : .gray
+            button.configuration = config
+        }
         nextButton.addTarget(self, action: #selector(nextPage), for: .touchUpInside)
+        nextButton.isEnabled = false
         
         prevButton = UIButton(configuration: .filled())
-        prevButton.configuration?.image = UIImage(systemName: "control")
-        prevButton.transform = CGAffineTransform(rotationAngle: -1.57)
+        prevButton.transform = CGAffineTransform(rotationAngle: -3.14)
         prevButton.configuration?.cornerStyle = .capsule
         prevButton.configuration?.baseBackgroundColor = .clear
-        prevButton.configuration?.baseForegroundColor = .accent
+        prevButton.configurationUpdateHandler = { button in
+            var config = button.configuration
+            config?.image = UIImage(named: "arrow")?.withTintColor(button.isEnabled ? .accent : .gray)
+            button.configuration = config
+        }
         prevButton.addTarget(self, action: #selector(prevPage), for: .touchUpInside)
         
         container.add().horizontal(">=0").view(prevButton, 64).gap(24).view(nextButton, 64).end(0)
@@ -131,15 +143,16 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
     }
     
     @objc func nextPage() {
+        guard cell.shouldSubmit() == true else { return }
         cell.hideKeyboard()
-        let current = floor(self.collectionView.contentOffset.y / self.collectionView.frame.size.height)
+        let current = floor(self.collectionView.contentOffset.x / self.collectionView.frame.size.width)
         indicate(Int(current) + 1)
         self.collectionView.scrollToItem(at: IndexPath(row: Int(current) + 1, section: 0), at: .centeredHorizontally, animated: true)
     }
     
     @objc func prevPage() {
         cell.hideKeyboard()
-        let current = floor(self.collectionView.contentOffset.y / self.collectionView.frame.size.height)
+        let current = floor(self.collectionView.contentOffset.x / self.collectionView.frame.size.width)
         indicate(Int(current) - 1)
         self.collectionView.scrollToItem(at: IndexPath(row: Int(current) - 1, section: 0), at: .centeredHorizontally, animated: true)
     }
@@ -153,16 +166,30 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
         }, completion: nil)
     }
     
+    // MARK: - OB Delegate Functions
+    
+    func OBControllerToggleReadyState(ready: Bool) {
+        self.nextButton.isEnabled = ready
+    }
+    
     // MARK: - Delegate functions
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let item = items[indexPath.row]
         cell = (collectionView.dequeueReusableCell(withReuseIdentifier: "base_cell", for: indexPath) as? OnboardingCell)!
-        cell.build(items[indexPath.row])
+        cell.build(item)
+        cell.delegate = self
+
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         indicate(indexPath.row)
+        if let cell = collectionView.cellForItem(at: indexPath) as? OnboardingCell {
+            cell.becomeActive()
+        }else {
+            self.cell.becomeActive()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
