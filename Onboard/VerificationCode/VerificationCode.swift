@@ -258,7 +258,6 @@ import UIKit
     }
     
     private func setupItems() {
-        let marginsCount = numel - 1
         var currentUnderlineX: CGFloat = 0
         var currentLabelCenterX = currentUnderlineX + itemWidth / 2
         

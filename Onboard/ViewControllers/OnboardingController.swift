@@ -13,10 +13,11 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
     var indicator: UIView!
     var indicatorLastPosition: Int?
     let items: [OBFormConfig] = [
-        OBFormType.VerificationCode.Config("Enter the verification code", "Code", submitType: .nestable),
-        OBFormType.Name.Config("What's your full name?", "Fullname", submitType: .nestable),
-        OBFormType.Username.Config("Choose your username", "Username", submitType: .nestable),
-        OBFormType.Email.Config("What is your email address?", "Email address", submitType: .nestable)
+        OBFormType.Date.Config("Choose your date of birth", "Date of birth", datePickerConfig: .init(date: Date())),
+        OBFormType.VerificationCode.Config("Enter the verification code", "Code"),
+        OBFormType.Name.Config("What's your full name?", "Fullname"),
+        OBFormType.Username.Config("Choose your username", "Username"),
+        OBFormType.Email.Config("What is your email address?", "Email address")
     ]
     var cell: OnboardingCell!
     var navPanel: UIView!
@@ -144,16 +145,20 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
     
     @objc func nextPage() {
         guard cell.shouldSubmit() == true else { return }
-        cell.hideKeyboard()
         let current = floor(self.collectionView.contentOffset.x / self.collectionView.frame.size.width)
+        let currentCell = collectionView.cellForItem(at: IndexPath(item: Int(current), section: 0)) as? OnboardingCell
+        currentCell?.hideKeyboard()
+        guard CGFloat(current + 1) < CGFloat(items.count) else { return }
         indicate(Int(current) + 1)
         self.collectionView.scrollToItem(at: IndexPath(row: Int(current) + 1, section: 0), at: .centeredHorizontally, animated: true)
     }
     
     @objc func prevPage() {
-        cell.hideKeyboard()
         let current = floor(self.collectionView.contentOffset.x / self.collectionView.frame.size.width)
+        let currentCell = collectionView.cellForItem(at: IndexPath(item: Int(current), section: 0)) as? OnboardingCell
+        currentCell?.hideKeyboard()
         indicate(Int(current) - 1)
+        guard current - 1 >= 0 else { return }
         self.collectionView.scrollToItem(at: IndexPath(row: Int(current) - 1, section: 0), at: .centeredHorizontally, animated: true)
     }
     
@@ -185,11 +190,7 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         indicate(indexPath.row)
-        if let cell = collectionView.cellForItem(at: indexPath) as? OnboardingCell {
-            cell.becomeActive()
-        }else {
-            self.cell.becomeActive()
-        }
+        (cell as? OnboardingCell)!.becomeActive(items[indexPath.row])
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
