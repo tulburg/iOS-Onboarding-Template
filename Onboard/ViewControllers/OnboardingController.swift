@@ -13,17 +13,20 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
     var indicator: UIView!
     var indicatorLastPosition: Int?
     let items: [OBFormConfig] = [
-        OBFormType.Phone.Config("What is your phone number", "Phone number"),
-        OBFormType.Date.Config("Choose your date of birth", "Date of birth", datePickerConfig: .init(date: Date())),
-        OBFormType.VerificationCode.Config("Enter the verification code", "Code"),
-        OBFormType.Name.Config("What's your full name?", "Fullname"),
-        OBFormType.Username.Config("Choose your username", "Username"),
-        OBFormType.Email.Config("What is your email address?", "Email address")
+        OBFormType.Select.Config("gender", "What is your gender", selectConfig: .init(options: .init(dictionaryLiteral: ("m", "Male"), ("f", "Female"), ("n", "None")), multipleChoice: true)),
+        OBFormType.Select.Config("relationship", "What is your relationship status", selectConfig: .init(options: .init(dictionaryLiteral: ("0", "Single"), ("1", "In Relationship"), ("2", "Confused"), ("3", "Divorced"), ("4", "Widowed")), multipleChoice: false)),
+        OBFormType.Phone.Config("phone", "What is your phone number", "Phone number"),
+        OBFormType.Date.Config("dob", "Choose your date of birth", datePickerConfig: .init(date: Date())),
+        OBFormType.VerificationCode.Config("code", "Enter the verification code", "Code"),
+        OBFormType.Name.Config("name", "What's your full name?", "Fullname"),
+        OBFormType.Username.Config("username", "Choose your username", "Username"),
+        OBFormType.Email.Config("email", "What is your email address?", "Email address")
     ]
     var cell: OnboardingCell!
     var navPanel: UIView!
     var nextButton: UIButton!
     var prevButton: UIButton!
+    var result: NSMutableDictionary = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,6 +130,7 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
             button.configuration = config
         }
         prevButton.addTarget(self, action: #selector(prevPage), for: .touchUpInside)
+//        prevButton.isHidden = true
         
         container.add().horizontal(">=0").view(prevButton, 64).gap(24).view(nextButton, 64).end(0)
         container.add().vertical(">=0").view(nextButton, 64).end(0)
@@ -149,7 +153,10 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
         let current = floor(self.collectionView.contentOffset.x / self.collectionView.frame.size.width)
         let currentCell = collectionView.cellForItem(at: IndexPath(item: Int(current), section: 0)) as? OnboardingCell
         currentCell?.hideKeyboard()
-        guard CGFloat(current + 1) < CGFloat(items.count) else { return }
+        guard CGFloat(current + 1) < CGFloat(items.count) else {
+            print(result)
+            return
+        }
         indicate(Int(current) + 1)
         self.collectionView.scrollToItem(at: IndexPath(row: Int(current) + 1, section: 0), at: .centeredHorizontally, animated: true)
     }
@@ -176,6 +183,10 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
     
     func OBControllerToggleReadyState(ready: Bool) {
         self.nextButton.isEnabled = ready
+    }
+    
+    func OBControllerUpdateValueForKey(key: String, value: Any) {
+        result.setValue(value, forKey: key)
     }
     
     // MARK: - Delegate functions
