@@ -13,8 +13,9 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
     var indicator: UIView!
     var indicatorLastPosition: Int?
     let items: [OBFormConfig] = [
-        OBFormType.Date.Config("Choose your date of birth", "Date of birth", datePickerConfig: .init(date: Date())),
-        OBFormType.VerificationCode.Config("Enter the verification code", "Code"),
+//        OBFormType.Phone.Config("What is your phone number", "Phone number"),
+//        OBFormType.Date.Config("Choose your date of birth", "Date of birth", datePickerConfig: .init(date: Date())),
+//        OBFormType.VerificationCode.Config("Enter the verification code", "Code"),
         OBFormType.Name.Config("What's your full name?", "Fullname"),
         OBFormType.Username.Config("Choose your username", "Username"),
         OBFormType.Email.Config("What is your email address?", "Email address")

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCodeProtocol {
+class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCodeProtocol, CountryPickerDelegate {
     
     var textInput: UITextField!
     var datePicker: UIDatePicker!
@@ -21,6 +21,8 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
     var dateContainer: UIView!
     var dateLabel: UILabel!
     var selectedDate: Date?
+    var phoneContainer: UIView!
+    var countryCode: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,6 +31,7 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
         inputContainer = buildTextInput()
         verificationCode = buildVerificationCode()
         dateContainer = buildDatePicker()
+        phoneContainer = buildPhone()
         
         contentView.backgroundColor = .background
     }
@@ -48,6 +51,9 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
             textInput.autocapitalizationType = .none
             textInput.textContentType = .emailAddress
             textInput.keyboardType = .emailAddress
+        }else if config.type == .Phone {
+            textInput.textContentType = .telephoneNumber
+            textInput.keyboardType = .phonePad
         }
         if (config.type == .Name || config.type == .Email || config.type == .Username) {
             questionLabel.isHidden = false
@@ -80,11 +86,18 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
             contentView.constrain(type: .horizontalFill, questionLabel, dateContainer, margin: 24)
         }
         
+        if config.type == .Phone {
+            phoneContainer.isHidden = false
+            contentView.add().vertical(24).view(questionLabel).gap(24)
+                .view(phoneContainer).end(">=24")
+            contentView.constrain(type: .horizontalFill, questionLabel, phoneContainer, margin: 24)
+        }
+        
     }
     
     override func prepareForReuse() {
         contentView.removeConstraints(contentView.constraints)
-        [questionLabel, inputContainer, verificationCode, dateContainer].forEach{ $0?.isHidden = true }
+        [questionLabel, inputContainer, verificationCode, dateContainer, phoneContainer].forEach{ $0?.isHidden = true }
     }
     
     required init?(coder: NSCoder) {
@@ -137,6 +150,27 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
         return container
     }
     
+    func buildPhone() -> UIView {
+        let container = UIView()
+        let country = UIView()
+        country.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(chooseCountry)))
+        let chevron = UIImageView(image: UIImage(systemName: "chevron.down")?.withTintColor(.primary).resize(CGSize(width: 16, height: 8)))
+        chevron.contentMode = .center
+        countryCode = UILabel("🇺🇸 +1", .text, .systemFont(ofSize: 28, weight: .semibold))
+        if let countryNumber = UserDefaults.standard.string(forKey: "ob_phone_country") {
+            countryCode.text = countryNumber
+        }
+        let line = UIView()
+        line.backgroundColor = .gray
+        country.add().vertical(0).view(countryCode, 40).gap(0).view(line, 2).end(">=0")
+        country.constrain(type: .horizontalFill, countryCode, line)
+        
+        let input = buildTextInput()
+        container.add().horizontal(0).view(country, 120).gap(16).view(input).end(0)
+        container.constrain(type: .verticalFill, country, input)
+        return container
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         hideKeyboard()
@@ -170,6 +204,9 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
         }
         if config.type == .VerificationCode {
             self.delegate?.OBControllerToggleReadyState(ready: verificationCode.numel == verificationCode.text?.count)
+        }
+        if config.type == .Phone {
+            self.delegate?.OBControllerToggleReadyState(ready: textInput.text!.count > 5)
         }
     }
     
@@ -226,6 +263,22 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
         selectedDate = sender.date
     }
     
+    @objc func chooseCountry() {
+        let countryPicker = CountryPickerViewController()
+        countryPicker.selectedCountry = "US"
+        countryPicker.delegate = self
+        (delegate as? OnboardingController)?.present(countryPicker, animated: true)
+        DispatchQueue.main.async {
+            countryPicker.searchTextField.becomeFirstResponder()
+        }
+    }
+    
+    func countryPicker(didSelect country: Country) {
+        countryCode.text = country.isoCode.getFlag() + " +" + country.phoneCode
+        DispatchQueue.main.async {
+            self.textInput.becomeFirstResponder()
+        }
+    }
 }
 
 enum OBFormType: String {
@@ -234,6 +287,7 @@ enum OBFormType: String {
     case Email
     case VerificationCode
     case Date
+    case Phone
     
     func Config(_ title: String, _ placeholder: String) -> OBFormConfig {
         return .init(type: self, title: title, placeholder: placeholder)

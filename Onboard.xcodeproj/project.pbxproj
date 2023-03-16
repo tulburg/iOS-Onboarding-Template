@@ -30,6 +30,17 @@
 		DFF6725C29C1FAD700B9D8D9 /* VerificationCodeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6725929C1FAD700B9D8D9 /* VerificationCodeItem.swift */; };
 		DFF6725D29C1FAD700B9D8D9 /* VerificationCodeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6725A29C1FAD700B9D8D9 /* VerificationCodeProtocol.swift */; };
 		DFF6725E29C1FAD700B9D8D9 /* VerificationCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6725B29C1FAD700B9D8D9 /* VerificationCode.swift */; };
+		DFF6726D29C28D6300B9D8D9 /* CountryPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6726029C28D6300B9D8D9 /* CountryPickerCell.swift */; };
+		DFF6726E29C28D6300B9D8D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFF6726229C28D6300B9D8D9 /* Assets.xcassets */; };
+		DFF6726F29C28D6300B9D8D9 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = DFF6726329C28D6300B9D8D9 /* countries.json */; };
+		DFF6727029C28D6300B9D8D9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6726429C28D6300B9D8D9 /* Config.swift */; };
+		DFF6727129C28D6300B9D8D9 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6726629C28D6300B9D8D9 /* UIView+Extension.swift */; };
+		DFF6727229C28D6300B9D8D9 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6726729C28D6300B9D8D9 /* String+Extension.swift */; };
+		DFF6727329C28D6300B9D8D9 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6726829C28D6300B9D8D9 /* UIStackView+Extension.swift */; };
+		DFF6727429C28D6300B9D8D9 /* ColorCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6726929C28D6300B9D8D9 /* ColorCompatibility.swift */; };
+		DFF6727529C28D6300B9D8D9 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6726A29C28D6300B9D8D9 /* Country.swift */; };
+		DFF6727629C28D6300B9D8D9 /* CountryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6726B29C28D6300B9D8D9 /* CountryManager.swift */; };
+		DFF6727729C28D6300B9D8D9 /* CountryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6726C29C28D6300B9D8D9 /* CountryPickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +88,17 @@
 		DFF6725929C1FAD700B9D8D9 /* VerificationCodeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeItem.swift; sourceTree = "<group>"; };
 		DFF6725A29C1FAD700B9D8D9 /* VerificationCodeProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeProtocol.swift; sourceTree = "<group>"; };
 		DFF6725B29C1FAD700B9D8D9 /* VerificationCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCode.swift; sourceTree = "<group>"; };
+		DFF6726029C28D6300B9D8D9 /* CountryPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryPickerCell.swift; sourceTree = "<group>"; };
+		DFF6726229C28D6300B9D8D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DFF6726329C28D6300B9D8D9 /* countries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = countries.json; sourceTree = "<group>"; };
+		DFF6726429C28D6300B9D8D9 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		DFF6726629C28D6300B9D8D9 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		DFF6726729C28D6300B9D8D9 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		DFF6726829C28D6300B9D8D9 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
+		DFF6726929C28D6300B9D8D9 /* ColorCompatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCompatibility.swift; sourceTree = "<group>"; };
+		DFF6726A29C28D6300B9D8D9 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		DFF6726B29C28D6300B9D8D9 /* CountryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryManager.swift; sourceTree = "<group>"; };
+		DFF6726C29C28D6300B9D8D9 /* CountryPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryPickerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +149,7 @@
 		DF447DF929C0A9AA00DBABF5 /* Onboard */ = {
 			isa = PBXGroup;
 			children = (
+				DFF6725F29C28D6300B9D8D9 /* CountryPicker */,
 				DFF6725829C1FAD700B9D8D9 /* VerificationCode */,
 				DF8E39BC29C129F600863714 /* CollectionCells */,
 				DF447E4729C0AB6500DBABF5 /* Extensions.swift */,
@@ -207,6 +230,40 @@
 				DFF6725B29C1FAD700B9D8D9 /* VerificationCode.swift */,
 			);
 			path = VerificationCode;
+			sourceTree = "<group>";
+		};
+		DFF6725F29C28D6300B9D8D9 /* CountryPicker */ = {
+			isa = PBXGroup;
+			children = (
+				DFF6726029C28D6300B9D8D9 /* CountryPickerCell.swift */,
+				DFF6726129C28D6300B9D8D9 /* Resources */,
+				DFF6726429C28D6300B9D8D9 /* Config.swift */,
+				DFF6726529C28D6300B9D8D9 /* Extensions */,
+				DFF6726929C28D6300B9D8D9 /* ColorCompatibility.swift */,
+				DFF6726A29C28D6300B9D8D9 /* Country.swift */,
+				DFF6726B29C28D6300B9D8D9 /* CountryManager.swift */,
+				DFF6726C29C28D6300B9D8D9 /* CountryPickerViewController.swift */,
+			);
+			path = CountryPicker;
+			sourceTree = "<group>";
+		};
+		DFF6726129C28D6300B9D8D9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DFF6726229C28D6300B9D8D9 /* Assets.xcassets */,
+				DFF6726329C28D6300B9D8D9 /* countries.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DFF6726529C28D6300B9D8D9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DFF6726629C28D6300B9D8D9 /* UIView+Extension.swift */,
+				DFF6726729C28D6300B9D8D9 /* String+Extension.swift */,
+				DFF6726829C28D6300B9D8D9 /* UIStackView+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,6 +372,8 @@
 			files = (
 				DF447E0A29C0A9AC00DBABF5 /* LaunchScreen.storyboard in Resources */,
 				DF447E0729C0A9AC00DBABF5 /* Assets.xcassets in Resources */,
+				DFF6726E29C28D6300B9D8D9 /* Assets.xcassets in Resources */,
+				DFF6726F29C28D6300B9D8D9 /* countries.json in Resources */,
 				DF447E0229C0A9AA00DBABF5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,9 +400,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF447E3E29C0AA6400DBABF5 /* Response.swift in Sources */,
+				DFF6727229C28D6300B9D8D9 /* String+Extension.swift in Sources */,
 				DFF6725C29C1FAD700B9D8D9 /* VerificationCodeItem.swift in Sources */,
 				DF447E3B29C0AA6400DBABF5 /* Constants.swift in Sources */,
+				DFF6727529C28D6300B9D8D9 /* Country.swift in Sources */,
 				DF447E4029C0AA6400DBABF5 /* DB.swift in Sources */,
+				DFF6727029C28D6300B9D8D9 /* Config.swift in Sources */,
 				DF447E4129C0AA6400DBABF5 /* Api.swift in Sources */,
 				DF447E3D29C0AA6400DBABF5 /* Linker.swift in Sources */,
 				DF447E4329C0AA6400DBABF5 /* ViewController.swift in Sources */,
@@ -354,9 +416,15 @@
 				DF447E0529C0A9AA00DBABF5 /* Onboard.xcdatamodeld in Sources */,
 				DF447DFB29C0A9AA00DBABF5 /* AppDelegate.swift in Sources */,
 				DF8E39BE29C12A0B00863714 /* OnboardingCell.swift in Sources */,
+				DFF6726D29C28D6300B9D8D9 /* CountryPickerCell.swift in Sources */,
+				DFF6727629C28D6300B9D8D9 /* CountryManager.swift in Sources */,
 				DF447DFD29C0A9AA00DBABF5 /* SceneDelegate.swift in Sources */,
 				DFF6725E29C1FAD700B9D8D9 /* VerificationCode.swift in Sources */,
+				DFF6727729C28D6300B9D8D9 /* CountryPickerViewController.swift in Sources */,
+				DFF6727129C28D6300B9D8D9 /* UIView+Extension.swift in Sources */,
 				DF447E4429C0AA6400DBABF5 /* LoginController.swift in Sources */,
+				DFF6727329C28D6300B9D8D9 /* UIStackView+Extension.swift in Sources */,
+				DFF6727429C28D6300B9D8D9 /* ColorCompatibility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
