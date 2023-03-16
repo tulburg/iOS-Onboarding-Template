@@ -14,6 +14,7 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
     var question: String!
     var config: OBFormConfig!
     var delegate: OBDelegate!
+    var phoneInput: UITextField!
     
     var questionLabel: UILabel!
     var inputContainer: UIView!
@@ -52,8 +53,8 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
             textInput.textContentType = .emailAddress
             textInput.keyboardType = .emailAddress
         }else if config.type == .Phone {
-            textInput.textContentType = .telephoneNumber
-            textInput.keyboardType = .phonePad
+            phoneInput.textContentType = .telephoneNumber
+            phoneInput.keyboardType = .phonePad
         }
         if (config.type == .Name || config.type == .Email || config.type == .Username) {
             questionLabel.isHidden = false
@@ -165,7 +166,17 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
         country.add().vertical(0).view(countryCode, 40).gap(0).view(line, 2).end(">=0")
         country.constrain(type: .horizontalFill, countryCode, line)
         
-        let input = buildTextInput()
+        let input = UIView()
+        let inputLine = UIView()
+        inputLine.backgroundColor = .gray
+        phoneInput = UITextField()
+        phoneInput.backgroundColor = UIColor.clear
+        phoneInput.textColor = .accent
+        phoneInput.delegate = self
+        phoneInput.font = .systemFont(ofSize: 28, weight: .semibold)
+        input.add().vertical(0).view(phoneInput, 40).gap(0).view(inputLine, 2).end(0)
+        input.constrain(type: .horizontalFill, phoneInput, inputLine)
+        
         container.add().horizontal(0).view(country, 120).gap(16).view(input).end(0)
         container.constrain(type: .verticalFill, country, input)
         return container
@@ -206,7 +217,7 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
             self.delegate?.OBControllerToggleReadyState(ready: verificationCode.numel == verificationCode.text?.count)
         }
         if config.type == .Phone {
-            self.delegate?.OBControllerToggleReadyState(ready: textInput.text!.count > 5)
+            self.delegate?.OBControllerToggleReadyState(ready: phoneInput.text!.count > 5)
         }
     }
     
@@ -216,6 +227,9 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
         }
         if verificationCode.isFirstResponder {
             verificationCode.resignFirstResponder()
+        }
+        if phoneInput.isFirstResponder {
+            phoneInput.resignFirstResponder()
         }
     }
     
@@ -228,6 +242,9 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
             if config.type == .Name || config.type == .Username || config.type == .Email {
                 textInput.becomeFirstResponder()
             }
+            if config.type == .Phone {
+                phoneInput.becomeFirstResponder()
+            }
             if config.type == .VerificationCode {
                 self.verificationCode.becomeFirstResponder()
             }
@@ -239,6 +256,9 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
         DispatchQueue.main.async { [self] in
             if config.type == .Name || config.type == .Username || config.type == .Email {
                 textInput.resignFirstResponder()
+            }
+            if config.type == .Phone {
+                phoneInput.resignFirstResponder()
             }
             if config.type == .VerificationCode {
                 self.verificationCode.resignFirstResponder()
