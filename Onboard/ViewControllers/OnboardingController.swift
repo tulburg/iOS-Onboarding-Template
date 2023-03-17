@@ -186,7 +186,21 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
     }
     
     func OBControllerUpdateValueForKey(key: String, value: Any) {
-        result.setValue(value, forKey: key)
+        if let current = items.first(where: { $0.key == key}) {
+            if current.type == .Select {
+                if let currentValue = result.value(forKey: current.key) {
+                    var items: [Any] = currentValue as! [Any]
+                    items.append(value as! (String, String))
+                    result.setValue(items, forKey: current.key)
+                }else {
+                    let items = [value]
+                    result.setValue(items, forKey: current.key)
+                }
+            }else {
+                result.setValue(value, forKey: key)
+            }
+        }
+        
     }
     
     // MARK: - Delegate functions
