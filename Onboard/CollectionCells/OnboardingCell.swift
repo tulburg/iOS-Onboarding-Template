@@ -64,14 +64,14 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
             questionLabel.isHidden = false
             inputContainer.isHidden = false
             
-            contentView.add().vertical(24).view(questionLabel).gap(24)
+            contentView.add().vertical(24).view(questionLabel).gap(40)
                 .view(inputContainer, ">=40").end(">=24")
             contentView.constrain(type: .horizontalFill, questionLabel, inputContainer, margin: 24)
         }
         if (config.type == .VerificationCode) {
             questionLabel.isHidden = false
             verificationCode.isHidden = false
-            contentView.add().vertical(24).view(questionLabel).gap(24)
+            contentView.add().vertical(24).view(questionLabel).gap(40)
                 .view(verificationCode, 64).end(">=24")
             contentView.constrain(type: .horizontalFill, questionLabel, margin: 24)
             contentView.add().horizontal(24).view(verificationCode).end(">=0")
@@ -87,7 +87,7 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
             }
             selectedDate = datePicker.date
             
-            contentView.add().vertical(24).view(questionLabel).gap(24)
+            contentView.add().vertical(24).view(questionLabel).gap(40)
                 .view(dateContainer).end(">=24")
             contentView.constrain(type: .horizontalFill, questionLabel, dateContainer, margin: 24)
         }
@@ -96,7 +96,7 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
             questionLabel.isHidden = false
             phoneContainer.isHidden = false
             selectedCountry = Country(isoCode: "US")
-            contentView.add().vertical(24).view(questionLabel).gap(24)
+            contentView.add().vertical(24).view(questionLabel).gap(40)
                 .view(phoneContainer).end(">=24")
             contentView.constrain(type: .horizontalFill, questionLabel, phoneContainer, margin: 24)
         }
@@ -106,7 +106,7 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
             selectContainer.isHidden = false
             
             tableView.allowsMultipleSelection = (config.selectConfig?.multipleChoice)!
-            contentView.add().vertical(24).view(questionLabel).gap(24)
+            contentView.add().vertical(24).view(questionLabel).gap(40)
                 .view(selectContainer).end(0)
             contentView.constrain(type: .horizontalFill, questionLabel, selectContainer, margin: 24)
         }
