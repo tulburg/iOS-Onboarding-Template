@@ -110,6 +110,11 @@ class OnboardingCell: UICollectionViewCell, UITextFieldDelegate, VerificationCod
                 .view(selectContainer).end(0)
             contentView.constrain(type: .horizontalFill, questionLabel, selectContainer, margin: 24)
         }
+        
+        let line = UIView()
+        line.backgroundColor = .separatorLight
+        contentView.add().vertical(0).view(line, 1).end(">=0")
+        contentView.constrain(type: .horizontalFill, line)
     }
     
     override func prepareForReuse() {

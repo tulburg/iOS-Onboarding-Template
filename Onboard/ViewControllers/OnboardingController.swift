@@ -36,13 +36,10 @@ class OnboardingController: ViewController, UICollectionViewDataSource, UICollec
         indicator = buildIndicator(items.count)
         navPanel = buildNavPanel()
         
-        let line = UIView()
-        line.backgroundColor = .separatorLight
-        
-        view.add().vertical(safeAreaInset!.top).view(line, 1).gap(24).view(indicator, 24).view(collectionView).end(0)
+        view.add().vertical(safeAreaInset!.top + 24).view(indicator, 24).view(collectionView, view.frame.height - safeAreaInset!.top - 56).end(">=0")
         view.add().vertical(">=0").view(navPanel, 64).end(24 + safeAreaInset!.bottom)
         view.add().horizontal(24).view(indicator).end(">=0")
-        view.constrain(type: .horizontalFill, collectionView, line)
+        view.constrain(type: .horizontalFill, collectionView)
         view.constrain(type: .horizontalFill, navPanel, margin: 24)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification , object: .none)
